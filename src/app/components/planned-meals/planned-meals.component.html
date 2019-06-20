@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-4" *ngFor="let day of plannedDays">
+    <div class="card border-secondary mb-3">
+      <div class="card-header">{{day.day | date:'dd.MM.yyyy'}}</div>
+      <div class="card-body text-secondary">
+        <p class="card-text">
+          Śniadanie: {{day.dayMeals.breakfast.name}} <br>
+          Drugie śniadanie: {{day.dayMeals.brunch.name}} <br>
+          Obiad: {{day.dayMeals.dinner.name}} <br>
+          Podwieczorek: {{day.dayMeals.tea.name}} <br>
+          Kolacja: {{day.dayMeals.supper.name}} <br>
+        </p>
+      </div>
+      <h5 class="card-footer">Kalorie: {{day.dayMeals.calories}}</h5>
+      <a  class="btn btn-primary" (click)="onClick()">Details</a>
+    </div>
+  </div>
+</div>
