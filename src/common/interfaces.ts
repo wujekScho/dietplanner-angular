@@ -50,6 +50,6 @@ export interface Product {
   
   export interface PlannedDay {
     id: number;
-    day: number[];
+    mealsDate: number[];
     dayMeals: DayMeals;
   }

@@ -9,6 +9,7 @@ import * as moment from 'moment';
   styleUrls: ['./planned-meals.component.css']
 })
 export class PlannedMealsComponent implements OnInit {
+  userId = 1;
   plannedDays: PlannedDay[] = [];
   procededDates: Date[] = [];
   day;
@@ -16,18 +17,19 @@ export class PlannedMealsComponent implements OnInit {
   constructor(private service: PlannedDaysService) { }
 
   ngOnInit() {
-    this.service.getAllByUserId(1).subscribe((plannedDays: PlannedDay[]) => this.plannedDays = plannedDays);
+    this.service.getAllByUserId(this.userId).subscribe((plannedDays: PlannedDay[]) => this.plannedDays = plannedDays);
     for (let i = 0; i <= 12; i++) {
       this.procededDates.push(moment().add(i, 'days').toDate());
     }
   }
 
   onClick(day: PlannedDay) {
+    console.log(this.plannedDays);
     console.log(day);
   }
 
   getDateOfPlannedDay(day: PlannedDay) {
-    let dayArr = day.day;
+    let dayArr = day.mealsDate;
     return new Date(dayArr[0], dayArr[1] - 1, dayArr[2]);
   }
 

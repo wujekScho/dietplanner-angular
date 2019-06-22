@@ -26,7 +26,7 @@
           </p>
         </div>
         <div class="card-footer">
-          <button class="btn btn-primary" (click)="addDayMeals(date)">Dodaj</button>
+          <button class="btn btn-primary" [routerLink]="['/add-day-meals', userId, date | date:'yyyy.MM.dd']">Dodaj</button>
         </div>
       </div>
     </ng-template>

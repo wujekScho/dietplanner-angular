@@ -1,13 +1,15 @@
 import { AppError } from './../../common/errors/app-error';
 import { BadInputError } from './../../common/errors/bad-request-error';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { NotFoundError } from 'src/common/errors/not-found-error';
 
 @Injectable()
 export class DataService {
+
+  headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
 
   constructor(protected url: string, protected http: HttpClient) { }
 
@@ -18,7 +20,7 @@ export class DataService {
   }
 
   create(resource) {
-    return this.http.post(this.url, JSON.stringify(resource)).pipe(
+    return this.http.post(this.url, JSON.stringify(resource), {headers: this.headers}).pipe(
       catchError(this.handleError)
     );
   }

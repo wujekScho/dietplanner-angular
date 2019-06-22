@@ -1,3 +1,4 @@
+import { AddDayMealsComponent } from './components/add-day-meals/add-day-meals.component';
 import { PlannedDaysService } from './services/planned-days.service';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,15 +21,17 @@ import { DayMealsService } from './services/day-meals.service';
     NavbarComponent,
     HomeComponent,
     NotFoundComponent,
-    PlannedMealsComponent
+    PlannedMealsComponent,
+    AddDayMealsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component:  HomeComponent},
+      { path: '', component: HomeComponent },
       { path: 'planned-meals', component: PlannedMealsComponent },
+      { path: 'add-day-meals/:userId/:mealDate', component: AddDayMealsComponent },
       { path: '**', component: NotFoundComponent },
     ])
   ],
