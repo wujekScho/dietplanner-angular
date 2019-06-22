@@ -36,8 +36,8 @@ export class AddDayMealsComponent implements OnInit {
 
   addDayMealToDay(dayMealsId: number) {
     let newPlannedDay = {
-      day: this.mealDate,
-      dayMealsId: dayMealsId,
+      mealsDate: this.mealDate,
+      dayMealsId: 1,
       userId: this.userId
     }
     console.log(newPlannedDay);
