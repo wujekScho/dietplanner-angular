@@ -14,6 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PlannedMealsComponent } from './components/planned-meals/planned-meals.component';
 import { DayMealsService } from './services/day-meals.service';
+import { DatePipe } from '@angular/common';
+import { PlannedMealsDetailsComponent } from './components/planned-meals-details/planned-meals-details.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { DayMealsService } from './services/day-meals.service';
     HomeComponent,
     NotFoundComponent,
     PlannedMealsComponent,
-    AddDayMealsComponent
+    AddDayMealsComponent,
+    PlannedMealsDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import { DayMealsService } from './services/day-meals.service';
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'planned-meals', component: PlannedMealsComponent },
+      { path: 'planned-meals/:plannedDayId', component: PlannedMealsDetailsComponent },
       { path: 'add-day-meals/:userId/:mealDate', component: AddDayMealsComponent },
       { path: '**', component: NotFoundComponent },
     ])
@@ -38,7 +42,9 @@ import { DayMealsService } from './services/day-meals.service';
   providers: [
     DataService,
     DayMealsService,
-    PlannedDaysService
+    PlannedDaysService,
+    DatePipe,
+    PlannedMealsComponent
   ],
   bootstrap: [AppComponent]
 })

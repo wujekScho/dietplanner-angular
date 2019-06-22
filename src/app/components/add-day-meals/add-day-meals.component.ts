@@ -1,7 +1,8 @@
-import { PlannedDay, DayMeals } from './../../../common/interfaces';
+import { PlannedMealsComponent } from './../planned-meals/planned-meals.component';
+import {  DayMeals } from './../../../common/interfaces';
 import { DayMealsService } from './../../services/day-meals.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PlannedDaysService } from 'src/app/services/planned-days.service';
 
 @Component({
@@ -12,9 +13,11 @@ import { PlannedDaysService } from 'src/app/services/planned-days.service';
 export class AddDayMealsComponent implements OnInit {
   userId: number;
   mealDate: number[];
+  allDayMeals: DayMeals[];
 
 
-  constructor(private route: ActivatedRoute, private plannedDaysService: PlannedDaysService, private dayMealsService: DayMealsService) {
+  constructor(private route: ActivatedRoute, private plannedDaysService: PlannedDaysService, private dayMealsService: DayMealsService,
+    private router: Router, private plannedMealsComp: PlannedMealsComponent) {
 
   }
 
@@ -23,7 +26,9 @@ export class AddDayMealsComponent implements OnInit {
       .subscribe(params => {
         this.userId = +params.get('userId');
         this.mealDate = this.getMealDateArr(params.get('mealDate'));
-      })
+      });
+
+    this.dayMealsService.getAll().subscribe((dayMeals: DayMeals[]) => this.allDayMeals = dayMeals);
   }
 
   getMealDateArr(date: string) {
@@ -37,10 +42,10 @@ export class AddDayMealsComponent implements OnInit {
   addDayMealToDay(dayMealsId: number) {
     let newPlannedDay = {
       mealsDate: this.mealDate,
-      dayMealsId: 1,
+      dayMealsId: dayMealsId,
       userId: this.userId
     }
-    console.log(newPlannedDay);
     this.plannedDaysService.create(newPlannedDay).subscribe();
+    this.router.navigate(["/planned-meals"]);
   }
 }

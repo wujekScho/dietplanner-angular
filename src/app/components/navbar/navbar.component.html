@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-light bg-light">
+<nav class="navbar navbar-expand navbar-light bg-light sticky-top">
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <ul class="navbar-nav">
       <li class="nav-item" routerLinkActive="active">
@@ -10,6 +10,7 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/??????">Moje postępy</a>
       </li>
+      <button type="button" class="btn btn-secondary btn-sm nav-item" (click)="goBack()">Wstecz</button>
     </ul>
   </div>
 </nav>

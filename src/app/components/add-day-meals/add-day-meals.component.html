@@ -1,4 +1,23 @@
-user: {{userId}}<br>
-date: {{mealDate}}<br>
-
-<button (click)="addDayMealToDay()">Add day</button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let dayMeals of allDayMeals;">
+            <div class="card border-secondary mb-3">
+                <!-- <div class="card-header">{{day.mealsDate | date:'dd.MM.yyyy'}}</div> -->
+                <div class="card-body text-secondary">
+                    <p class="card-text">
+                        Śniadanie: {{dayMeals.breakfast.name}} <br>
+                        Drugie śniadanie: {{dayMeals.brunch.name}} <br>
+                        Obiad: {{dayMeals.dinner.name}} <br>
+                        Podwieczorek: {{dayMeals.tea.name}} <br>
+                        Kolacja: {{dayMeals.supper.name}} <br>
+                    </p>
+                </div>
+                <div class="card-footer">Kalorie: {{dayMeals.calories}}
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-secondary" (click)="addDayMealToDay(dayMeals.id)">Wybierz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

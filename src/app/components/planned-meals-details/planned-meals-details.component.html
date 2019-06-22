@@ -1,0 +1,59 @@
+<h2>Jadłospis na dzień: {{mealsDate | date:'dd.MM.yyyy'}} </h2>
+<div *ngFor="let meal of meals">
+  <div class="card">
+    <h5 class="card-header">{{meal.name}}</h5>
+    <div class="card-body" *ngIf="meal.recipe; let rec">
+      <h5 class="card-title">Przepis:</h5>
+      <p class="card-text">{{rec}}</p>
+    </div>
+  </div>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col" style="width: 30%">Produkt</th>
+        <th scope="col" style="width: 10%">Ilość [g]</th>
+        <th scope="col" style="width: 20%">Miara domowa</th>
+        <th scope="col" style="width: 10%">Energia [kcal]</th>
+        <th scope="col" style="width: 10%">Białko [g]</th>
+        <th scope="col" style="width: 10%">Tłuszcze [g]</th>
+        <th scope="col" style="width: 10%">Węglowodany [g]</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mealProduct of meal.mealProducts">
+        <td>{{mealProduct.product.name}}</td>
+        <td>{{mealProduct.weight}}</td>
+        <td *ngIf="getHomeMeasure(mealProduct); let homeMeasure else elseBlock">{{homeMeasure}}</td>
+        <ng-template #elseBlock>
+          <td></td>
+        </ng-template>
+        <td>{{mealProduct.calories}}</td>
+        <td>{{mealProduct.protein}}</td>
+        <td>{{mealProduct.fat}}</td>
+        <td>{{mealProduct.carbohydrates}}</td>
+      </tr>
+      <tr class="bolded">
+        <td>Suma</td>
+        <td>{{meal.weight}}</td>
+        <td></td>
+        <td>{{meal.calories}}</td>
+        <td>{{meal.protein}}</td>
+        <td>{{meal.fat}}</td>
+        <td>{{meal.carbohydrates}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<table class="table" *ngIf="dayMeals; let dayMeals">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col" style="width: 30%">Łącznie</th>
+      <th scope="col" style="width: 10%">{{dayMeals.weight}}</th>
+      <th scope="col" style="width: 20%"></th>
+      <th scope="col" style="width: 10%">{{dayMeals.calories}}</th>
+      <th scope="col" style="width: 10%">{{dayMeals.protein}}</th>
+      <th scope="col" style="width: 10%">{{dayMeals.fat}}</th>
+      <th scope="col" style="width: 10%">{{dayMeals.carbohydrates}}</th>
+    </tr>
+  </thead>
+</table>
