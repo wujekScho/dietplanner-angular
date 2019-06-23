@@ -5,8 +5,6 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
-
-
 @Component({
   selector: 'app-planned-meals',
   templateUrl: './planned-meals.component.html',
@@ -23,6 +21,7 @@ export class PlannedMealsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.service.refreshNeeded$.subscribe(()=>this.refreshData());
     this.refreshData();
     for (let i = 0; i <= 12; i++) {
       this.procededDates.push(moment().add(i, 'days').toDate());
@@ -30,7 +29,6 @@ export class PlannedMealsComponent implements OnInit {
   }
 
   public refreshData() {
-    this.plannedDays = [];
     this.service.getAllByUserId(this.userId).subscribe((plannedDays: PlannedDay[]) => this.plannedDays = plannedDays);
   }
 
@@ -62,9 +60,7 @@ export class PlannedMealsComponent implements OnInit {
   }
 
   delete(day: PlannedDay) {
-    this.service.delete(day.id).subscribe(() => {
-      this.refreshData();
-    });
+    this.service.delete(day.id).subscribe();
   }
 
   edit(day: PlannedDay) {

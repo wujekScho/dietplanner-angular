@@ -1,5 +1,5 @@
 import { PlannedMealsComponent } from './../planned-meals/planned-meals.component';
-import {  DayMeals } from './../../../common/interfaces';
+import { DayMeals } from './../../../common/interfaces';
 import { DayMealsService } from './../../services/day-meals.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
