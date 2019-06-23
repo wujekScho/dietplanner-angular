@@ -1,10 +1,12 @@
+import { NgbdModalConfig } from './../ng-bootstrap-components/modal/modal-config';
 import { MealProduct } from './../../../common/interfaces';
-import { Component, OnInit, ViewChild, ViewChildren, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, ViewChild } from '@angular/core';
 import { PlannedDay } from 'src/common/interfaces';
 import { PlannedDaysService } from 'src/app/services/planned-days.service';
 import { Router } from '@angular/router';
 import * as jsPDF from "jspdf";
 import html2canvas from 'html2canvas';
+import { NgbModal, NgbModalRef, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -13,13 +15,13 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./show-planned-meals.component.css']
 })
 export class ShowPlannedMealsComponent implements OnInit {
-  isDownloading = false;
-  userId = 1;
+  userId = 1; //pobierać podczas logowania
   _plannedDays: PlannedDay[] = [];
-  // @ViewChild("content", { static: false }) content: ElementRef;
   @ViewChildren('content') elements;
+  @ViewChild('modalContent', { static: false }) private content: NgbModalRef;
 
-  constructor(private service: PlannedDaysService, private router: Router) {
+
+  constructor(private service: PlannedDaysService, private router: Router, private modalService: NgbModal, private modalComponent: NgbModalConfig) {
   }
 
   ngOnInit() {
@@ -63,8 +65,7 @@ export class ShowPlannedMealsComponent implements OnInit {
   }
 
   async downloadPDF() {
-
-    this.isDownloading = true;
+    this.open();
     const pdf = new jsPDF('p', 'mm', 'a4');
 
     let element;
@@ -72,7 +73,6 @@ export class ShowPlannedMealsComponent implements OnInit {
 
     for (element of this.refElements) {
       const content = element.nativeElement;
-      console.log(content);
       if (i != 0) {
         pdf.addPage();
       }
@@ -89,6 +89,14 @@ export class ShowPlannedMealsComponent implements OnInit {
       i++;
     }
     pdf.save('dietplanner.pdf');
-    this.isDownloading = false;
+    this.close();
+  }
+
+  open() {
+    this.modalService.open(NgbdModalConfig);
+  }
+
+  close() {
+    this.modalService.dismissAll();
   }
 }

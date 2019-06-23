@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~8.0.1",
     "@angular/platform-browser-dynamic": "~8.0.1",
     "@angular/router": "~8.0.1",
+    "@ng-bootstrap/ng-bootstrap": "^4.2.1",
     "html2canvas": "^1.0.0-rc.3",
     "jspdf": "^1.5.3",
     "moment": "^2.24.0",

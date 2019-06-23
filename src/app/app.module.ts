@@ -1,3 +1,4 @@
+import { NgbdModalConfig } from './components/ng-bootstrap-components/modal/modal-config';
 import { AddDayMealsComponent } from './components/add-day-meals/add-day-meals.component';
 import { PlannedDaysService } from './services/planned-days.service';
 import { HomeComponent } from './components/home/home.component';
@@ -17,6 +18,8 @@ import { DatePipe } from '@angular/common';
 import { PlannedMealsDetailsComponent } from './components/planned-meals-details/planned-meals-details.component';
 import { GlobalProviderComponent } from './components/global-provider/global-provider.component';
 import { ShowPlannedMealsComponent } from './components/show-planned-meals/show-planned-meals.component';
+import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -28,12 +31,17 @@ import { ShowPlannedMealsComponent } from './components/show-planned-meals/show-
     AddDayMealsComponent,
     PlannedMealsDetailsComponent,
     GlobalProviderComponent,
-    ShowPlannedMealsComponent
+    ShowPlannedMealsComponent,
+    NgbdModalConfig
+  ],
+  entryComponents: [
+    NgbdModalConfig,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgbModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'planned-meals', component: PlannedMealsComponent },
@@ -48,7 +56,7 @@ import { ShowPlannedMealsComponent } from './components/show-planned-meals/show-
     PlannedDaysService,
     DatePipe,
     PlannedMealsComponent,
-    GlobalProviderComponent
+    GlobalProviderComponent,
   ],
   bootstrap: [AppComponent]
 })
