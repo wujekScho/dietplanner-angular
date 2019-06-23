@@ -16,6 +16,7 @@ import { PlannedMealsComponent } from './components/planned-meals/planned-meals.
 import { DayMealsService } from './services/day-meals.service';
 import { DatePipe } from '@angular/common';
 import { PlannedMealsDetailsComponent } from './components/planned-meals-details/planned-meals-details.component';
+import { GlobalProviderComponent } from './components/global-provider/global-provider.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { PlannedMealsDetailsComponent } from './components/planned-meals-details
     NotFoundComponent,
     PlannedMealsComponent,
     AddDayMealsComponent,
-    PlannedMealsDetailsComponent
+    PlannedMealsDetailsComponent,
+    GlobalProviderComponent
   ],
   imports: [
     BrowserModule,
@@ -40,11 +42,12 @@ import { PlannedMealsDetailsComponent } from './components/planned-meals-details
     ])
   ],
   providers: [
-    DataService,
+    // DataService,
     DayMealsService,
     PlannedDaysService,
     DatePipe,
-    PlannedMealsComponent
+    PlannedMealsComponent,
+    GlobalProviderComponent
   ],
   bootstrap: [AppComponent]
 })

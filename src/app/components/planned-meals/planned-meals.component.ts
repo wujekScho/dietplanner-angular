@@ -18,6 +18,7 @@ export class PlannedMealsComponent implements OnInit {
   procededDates: Date[] = [];
   day;
 
+
   constructor(private service: PlannedDaysService, private router: Router, private datePipe: DatePipe) {
   }
 
