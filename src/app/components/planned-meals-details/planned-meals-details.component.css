@@ -2,12 +2,34 @@
   font-weight: bold;
 }
 
-.card {
-  margin-top: 40px;
-  margin-bottom: 10px;
+.table {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
-.table{
-    padding-left: 15px;
-    padding-right: 15px;
+.day-title {
+  text-align: center;
+  font-size: 30px;
+  padding-bottom: 30px; 
+}
+
+.meal-desc{
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px; 
+}
+
+.meal-name {
+  font-size: 20px;
+  font-weight: 200;
+}
+
+.recipe {
+  font-size: 15px;
+  text-align: justify;
+}
+
+.btn {
+   float: right;
+   margin: 15px;
 }

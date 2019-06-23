@@ -1,0 +1,86 @@
+<button type="button" class="btn btn-secondary btn-sm" (click)="downloadPDF()" #printArea>Zapisz do pdf</button>
+<div class="modal" tabindex="-1" role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngFor="let plannedDay of plannedDays">
+  <div #content>
+    <h1 class="day-title">Posiłki na dzień: {{plannedDay.mealsDate | date:'dd.MM.yyyy'}}</h1>
+    <div *ngIf="mealsOfPlannedDay(plannedDay); let meals">
+      <div *ngFor="let meal of meals">
+        <div class="meal-desc">
+          <h3 class="meal-name">{{meal.name}}</h3>
+          <small class="recipe text-secondary" *ngIf="meal.recipe; let rec">{{rec}}</small>
+        </div>
+        <div class="table">
+          <table class="table table-sm table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 30%">Produkt</th>
+                <th scope="col" style="width: 10%">Ilość [g]</th>
+                <th scope="col" style="width: 20%">Miara domowa</th>
+                <th scope="col" style="width: 10%">Energia [kcal]</th>
+                <th scope="col" style="width: 10%">Białko [g]</th>
+                <th scope="col" style="width: 10%">Tłuszcze [g]</th>
+                <th scope="col" style="width: 10%">Węglowodany [g]</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mealProduct of meal.mealProducts">
+                <td>{{mealProduct.product.name}}</td>
+                <td>{{mealProduct.weight}}</td>
+                <td *ngIf="getHomeMeasure(mealProduct); let homeMeasure else elseBlock">{{homeMeasure}}</td>
+                <ng-template #elseBlock>
+                  <td></td>
+                </ng-template>
+                <td>{{mealProduct.calories}}</td>
+                <td>{{mealProduct.protein}}</td>
+                <td>{{mealProduct.fat}}</td>
+                <td>{{mealProduct.carbohydrates}}</td>
+              </tr>
+              <tr class="bolded">
+                <td>Suma</td>
+                <td>{{meal.weight}}</td>
+                <td></td>
+                <td>{{meal.calories}}</td>
+                <td>{{meal.protein}}</td>
+                <td>{{meal.fat}}</td>
+                <td>{{meal.carbohydrates}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table">
+        <table class="table table-sm table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" style="width: 30%">Łącznie</th>
+              <th scope="col" style="width: 10%">{{plannedDay.dayMeals.weight}}</th>
+              <th scope="col" style="width: 20%"></th>
+              <th scope="col" style="width: 10%">{{plannedDay.dayMeals.calories}}</th>
+              <th scope="col" style="width: 10%">{{plannedDay.dayMeals.protein}}</th>
+              <th scope="col" style="width: 10%">{{plannedDay.dayMeals.fat}}</th>
+              <th scope="col" style="width: 10%">{{plannedDay.dayMeals.carbohydrates}}</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

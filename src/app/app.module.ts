@@ -7,7 +7,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { DataService } from './services/data.service';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +16,7 @@ import { DayMealsService } from './services/day-meals.service';
 import { DatePipe } from '@angular/common';
 import { PlannedMealsDetailsComponent } from './components/planned-meals-details/planned-meals-details.component';
 import { GlobalProviderComponent } from './components/global-provider/global-provider.component';
+import { ShowPlannedMealsComponent } from './components/show-planned-meals/show-planned-meals.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import { GlobalProviderComponent } from './components/global-provider/global-pro
     PlannedMealsComponent,
     AddDayMealsComponent,
     PlannedMealsDetailsComponent,
-    GlobalProviderComponent
+    GlobalProviderComponent,
+    ShowPlannedMealsComponent
   ],
   imports: [
     BrowserModule,
@@ -37,12 +38,12 @@ import { GlobalProviderComponent } from './components/global-provider/global-pro
       { path: '', component: HomeComponent },
       { path: 'planned-meals', component: PlannedMealsComponent },
       { path: 'planned-meals/:plannedDayId', component: PlannedMealsDetailsComponent },
+      { path: 'show-planned-meals', component: ShowPlannedMealsComponent },
       { path: 'add-day-meals/:userId/:mealDate', component: AddDayMealsComponent },
       { path: '**', component: NotFoundComponent },
     ])
   ],
   providers: [
-    // DataService,
     DayMealsService,
     PlannedDaysService,
     DatePipe,

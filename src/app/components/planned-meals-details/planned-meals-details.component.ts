@@ -1,7 +1,11 @@
 import { ActivatedRoute } from '@angular/router';
 import { PlannedDaysService } from './../../services/planned-days.service';
 import { PlannedDay, Meal, MealProduct } from './../../../common/interfaces';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import * as jsPDF from "jspdf";
+import html2canvas from 'html2canvas';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-planned-meals-details',
@@ -11,8 +15,9 @@ import { Component, OnInit } from '@angular/core';
 export class PlannedMealsDetailsComponent implements OnInit {
   plannedDay: PlannedDay;
   plannedDayId: number;
+  @ViewChild("content", { static: false }) content: ElementRef;
 
-  constructor(private service: PlannedDaysService, private route: ActivatedRoute) { }
+  constructor(private service: PlannedDaysService, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.route.paramMap
@@ -52,6 +57,25 @@ export class PlannedMealsDetailsComponent implements OnInit {
   }
 
   get dayMeals() {
-    return (this.plannedDay)&&this.plannedDay.dayMeals;
+    return (this.plannedDay) && this.plannedDay.dayMeals;
+  }
+
+  
+
+  downloadPDF() {
+    let content = this.content.nativeElement;
+    html2canvas(content).then(canvas => {
+      console.log(content);
+      var imgWidth = 190;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jsPDF('p', 'mm', 'a4');
+      var position = 9;
+      pdf.addImage(contentDataURL, 'PDF', position, position, imgWidth, imgHeight);
+      pdf.save('dietplanner_' + this.datePipe.transform(this.mealsDate, 'yyyy.MM.dd') + '.pdf');
+    });
   }
 }
