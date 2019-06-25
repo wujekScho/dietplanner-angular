@@ -1,0 +1,18 @@
+<div class="check-group" *ngIf="!daysSelected; else elseBlock">
+  <h3 class="meal-name">Dla których dni przygotować listę zakupów?</h3>
+  <!-- <div class="form-check " *ngFor="let plannedDay of plannedDays">
+    <input class="form-check-input" type="checkbox" [id]="plannedDay.mealsDate" [value]="plannedDay.id">
+    <label class="form-check-label" [for]="plannedDay.mealsDate">{{plannedDay.mealsDate | date:'dd.MM.yyyy'}}</label>
+  </div> -->
+  <div *ngFor="let selectedDay of selectedDays">
+    <label>
+      <input type="checkbox" name="selectedDays" value="{{selectedDay.plannedDay.id}}"
+        [(ngModel)]="selectedDay.checked" />
+        {{selectedDay.plannedDay.mealsDate | date:'dd.MM.yyyy'}}
+    </label>
+  </div>
+  <button type="button" class="btn btn-secondary btn-sm nav-item mr-sm-2" (click)="getShoppingList()">Przygotuj</button>
+</div>
+<ng-template #elseBlock>
+  Else block.
+</ng-template>

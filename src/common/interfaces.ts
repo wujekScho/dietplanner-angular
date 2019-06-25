@@ -1,3 +1,4 @@
+import { PlannedDay } from 'src/common/interfaces';
 export interface Product {
     id: number;
     name: string;
@@ -52,4 +53,9 @@ export interface Product {
     id: number;
     mealsDate: number[];
     dayMeals: DayMeals;
+  }
+
+  export interface SelectedDay {
+    plannedDay: PlannedDay;
+    checked: boolean;
   }

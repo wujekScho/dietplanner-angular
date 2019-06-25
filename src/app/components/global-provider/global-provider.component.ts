@@ -13,5 +13,4 @@ export class GlobalProviderComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

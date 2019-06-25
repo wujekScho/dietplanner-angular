@@ -19,6 +19,7 @@ import { PlannedMealsDetailsComponent } from './components/planned-meals-details
 import { GlobalProviderComponent } from './components/global-provider/global-provider.component';
 import { ShowPlannedMealsComponent } from './components/show-planned-meals/show-planned-meals.component';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
     PlannedMealsDetailsComponent,
     GlobalProviderComponent,
     ShowPlannedMealsComponent,
-    NgbdModalConfig
+    NgbdModalConfig,
+    ShoppingListComponent
   ],
   entryComponents: [
     NgbdModalConfig,
@@ -42,11 +44,13 @@ import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'planned-meals', component: PlannedMealsComponent },
       { path: 'planned-meals/:plannedDayId', component: PlannedMealsDetailsComponent },
       { path: 'show-planned-meals', component: ShowPlannedMealsComponent },
+      { path: 'shopping-list', component: ShoppingListComponent },
       { path: 'add-day-meals/:userId/:mealDate', component: AddDayMealsComponent },
       { path: '**', component: NotFoundComponent },
     ])
