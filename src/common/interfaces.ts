@@ -59,3 +59,10 @@ export interface Product {
     plannedDay: PlannedDay;
     checked: boolean;
   }
+
+  export interface ShoppingListProduct {
+    name: string;
+    weight: number;
+    homeMeasure?: string;
+    type: string; 
+  }

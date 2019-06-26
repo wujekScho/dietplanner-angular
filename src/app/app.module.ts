@@ -45,7 +45,7 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
     HttpClientModule,
     NgbModule,
     FormsModule,
-    RouterModule.forRoot([
+        RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'planned-meals', component: PlannedMealsComponent },
       { path: 'planned-meals/:plannedDayId', component: PlannedMealsDetailsComponent },

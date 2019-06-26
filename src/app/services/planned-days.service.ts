@@ -10,12 +10,18 @@ import { catchError } from 'rxjs/operators';
 export class PlannedDaysService extends DataService {
 
   constructor(protected http: HttpClient, hostProvider: GlobalProviderComponent) {
-    super(hostProvider.host+'/planned_days', http);
+    super(hostProvider.host + '/planned_days', http);
   }
 
   getAllByUserId(id) {
-    return this.http.get(this.url+'/user/'+id).pipe(
+    return this.http.get(this.url + '/user/' + id).pipe(
       catchError(super.handleError)
+    );
+  }
+
+  getShoppingList(plannedDaysIds: number[]) {
+    return this.http.post(this.url + '/shopping-list', JSON.stringify(plannedDaysIds), { headers: this.headers }).pipe(
+      catchError(this.handleError),
     );
   }
 }

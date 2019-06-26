@@ -4,3 +4,7 @@ h3 {
   font-size: 20px;
   font-weight: 200;
 }
+
+i {
+  cursor: pointer;
+}

@@ -1,18 +1,44 @@
 <div class="check-group" *ngIf="!daysSelected; else elseBlock">
   <h3 class="meal-name">Dla których dni przygotować listę zakupów?</h3>
-  <!-- <div class="form-check " *ngFor="let plannedDay of plannedDays">
-    <input class="form-check-input" type="checkbox" [id]="plannedDay.mealsDate" [value]="plannedDay.id">
-    <label class="form-check-label" [for]="plannedDay.mealsDate">{{plannedDay.mealsDate | date:'dd.MM.yyyy'}}</label>
-  </div> -->
   <div *ngFor="let selectedDay of selectedDays">
     <label>
-      <input type="checkbox" name="selectedDays" value="{{selectedDay.plannedDay.id}}"
-        [(ngModel)]="selectedDay.checked" />
-        {{selectedDay.plannedDay.mealsDate | date:'dd.MM.yyyy'}}
+      <input type="checkbox" name="selectedDays" value="{{selectedDay.plannedDay.id}}" [(ngModel)]="selectedDay.checked"
+        (change)="checkCheckboxes()" />
+      {{selectedDay.plannedDay.mealsDate | date:'dd.MM.yyyy'}}
     </label>
   </div>
-  <button type="button" class="btn btn-secondary btn-sm nav-item mr-sm-2" (click)="getShoppingList()">Przygotuj</button>
+  <button type="button" class="btn btn-secondary btn-sm nav-item mr-sm-2" (click)="getShoppingList()"
+    [disabled]="allUnchecked">Przygotuj</button>
 </div>
 <ng-template #elseBlock>
-  Else block.
+  <button type="button" id="saveBtn" class="btn btn-secondary btn-sm" (click)="downloadPDF()" #printArea>Zapisz do pdf</button>
+  <div id="content" #content>
+    <h1 class="day-title">Lista zakupów</h1>
+    <table class="table table-sm table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col" style="width: 30%">Nazwa</th>
+          <th scope="col" style="width: 10%">Ilość [g]</th>
+          <th scope="col" style="width: 20%">Miara domowa</th>
+          <th scope="col" style="width: 15%">Typ</th>
+          <th scope="col" style="width: 15%">Już to mam</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of shoppingListProducts">
+          <td>{{product.name}}</td>
+          <td>{{product.weight}}</td>
+          <td *ngIf="product.homeMeasure; else elseBlock1">{{product.homeMeasure}}</td>
+          <ng-template #elseBlock1>
+            <td></td>
+          </ng-template>
+          <td>{{product.type}}</td>
+          <td><i class="material-icons" (click)=removeItem(product)>
+              check_circle_outline
+            </i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </ng-template>
