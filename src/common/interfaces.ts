@@ -51,7 +51,7 @@ export interface Product {
   
   export interface PlannedDay {
     id: number;
-    mealsDate: number[];
+    mealsDate: string;
     dayMeals: DayMeals;
   }
 

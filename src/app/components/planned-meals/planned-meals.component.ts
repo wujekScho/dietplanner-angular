@@ -21,7 +21,7 @@ export class PlannedMealsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.refreshNeeded$.subscribe(()=>this.refreshData());
+    this.service.refreshNeeded$.subscribe(() => this.refreshData());
     this.refreshData();
     for (let i = 0; i <= 12; i++) {
       this.procededDates.push(moment().add(i, 'days').toDate());
@@ -29,7 +29,9 @@ export class PlannedMealsComponent implements OnInit {
   }
 
   public refreshData() {
-    this.service.getAllByUserId(this.userId).subscribe((plannedDays: PlannedDay[]) => this.plannedDays = plannedDays);
+    this.service.getAllByUserId(this.userId).subscribe((plannedDays: PlannedDay[]) => {
+      this.plannedDays = plannedDays;
+    })
   }
 
   showDetails(day: PlannedDay) {
@@ -37,8 +39,8 @@ export class PlannedMealsComponent implements OnInit {
   }
 
   getDateOfPlannedDay(day: PlannedDay) {
-    let dayArr = day.mealsDate;
-    return new Date(dayArr[0], dayArr[1] - 1, dayArr[2]);
+    let dayArr: string[] = day.mealsDate.split("-");
+    return new Date(+dayArr[0], +dayArr[1] - 1, +dayArr[2]);
   }
 
   getDateOfNow() {

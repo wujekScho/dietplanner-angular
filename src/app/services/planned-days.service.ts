@@ -14,13 +14,13 @@ export class PlannedDaysService extends DataService {
   }
 
   getAllByUserId(id) {
-    return this.http.get(this.url + '/user/' + id).pipe(
-      catchError(super.handleError)
+    return this.http.get(this.url + '/user/' + id, {  withCredentials: true } ).pipe(
+      catchError(this.handleError)
     );
   }
 
   getShoppingList(plannedDaysIds: number[]) {
-    return this.http.post(this.url + '/shopping-list', JSON.stringify(plannedDaysIds), { headers: this.headers }).pipe(
+    return this.http.post(this.url + '/shopping-list', JSON.stringify(plannedDaysIds), { headers: this.headers, withCredentials: true }).pipe(
       catchError(this.handleError),
     );
   }
