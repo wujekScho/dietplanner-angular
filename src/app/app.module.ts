@@ -1,3 +1,4 @@
+import { AuthHttpInterceptorService } from './services/auth-http-interceptor.service';
 import { NgbdModalConfig } from './components/ng-bootstrap-components/modal/modal-config';
 import { AddDayMealsComponent } from './components/add-day-meals/add-day-meals.component';
 import { PlannedDaysService } from './services/planned-days.service';
@@ -9,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PlannedMealsComponent } from './components/planned-meals/planned-meals.component';
@@ -48,7 +49,7 @@ import { LoginService } from './services/login.service';
     HttpClientModule,
     NgbModule,
     FormsModule,
-        RouterModule.forRoot([
+    RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'planned-meals', component: PlannedMealsComponent },
@@ -66,6 +67,9 @@ import { LoginService } from './services/login.service';
     DatePipe,
     PlannedMealsComponent,
     GlobalProviderComponent,
+    {  
+      provide:HTTP_INTERCEPTORS, useClass:AuthHttpInterceptorService, multi:true 
+    },
   ],
   bootstrap: [AppComponent]
 })

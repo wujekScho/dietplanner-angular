@@ -1,3 +1,4 @@
+import { LoginService } from 'src/app/services/login.service';
 import { PlannedDay } from './../../../common/interfaces';
 import { PlannedDaysService } from '../../services/planned-days.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,16 +12,17 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./planned-meals.component.css']
 })
 export class PlannedMealsComponent implements OnInit {
-  userId = 1;
+  userId = 0;
   plannedDays: PlannedDay[] = [];
   procededDates: Date[] = [];
   day;
 
 
-  constructor(private service: PlannedDaysService, private router: Router, private datePipe: DatePipe) {
+  constructor(private service: PlannedDaysService, private router: Router, private datePipe: DatePipe, private loginService: LoginService) {
   }
 
   ngOnInit() {
+    this.userId=1;
     this.service.refreshNeeded$.subscribe(() => this.refreshData());
     this.refreshData();
     for (let i = 0; i <= 12; i++) {
