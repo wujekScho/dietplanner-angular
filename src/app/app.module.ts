@@ -20,6 +20,8 @@ import { GlobalProviderComponent } from './components/global-provider/global-pro
 import { ShowPlannedMealsComponent } from './components/show-planned-meals/show-planned-meals.component';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+import { LoginComponent } from './components/login/login.component';
+import { LoginService } from './services/login.service';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
     GlobalProviderComponent,
     ShowPlannedMealsComponent,
     NgbdModalConfig,
-    ShoppingListComponent
+    ShoppingListComponent,
+    LoginComponent
   ],
   entryComponents: [
     NgbdModalConfig,
@@ -47,6 +50,7 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
     FormsModule,
         RouterModule.forRoot([
       { path: '', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
       { path: 'planned-meals', component: PlannedMealsComponent },
       { path: 'planned-meals/:plannedDayId', component: PlannedMealsDetailsComponent },
       { path: 'show-planned-meals', component: ShowPlannedMealsComponent },
@@ -58,6 +62,7 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
   providers: [
     DayMealsService,
     PlannedDaysService,
+    LoginService,
     DatePipe,
     PlannedMealsComponent,
     GlobalProviderComponent,
