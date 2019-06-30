@@ -12,7 +12,7 @@ import html2canvas from 'html2canvas';
 })
 export class ShoppingListComponent implements OnInit {
   daysSelected: boolean;
-  userId = 1;
+  userId: number;
   _selectedDays: SelectedDay[] = [];
   allUnchecked: boolean;
   _shoppingListProducts: ShoppingListProduct[] = [];
@@ -23,6 +23,7 @@ export class ShoppingListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userId = +sessionStorage.getItem('loggedUserId');
     this.refreshData();
   }
 

@@ -12,17 +12,18 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./planned-meals.component.css']
 })
 export class PlannedMealsComponent implements OnInit {
-  userId = 0;
+  userId;
   plannedDays: PlannedDay[] = [];
   procededDates: Date[] = [];
   day;
 
 
-  constructor(private service: PlannedDaysService, private router: Router, private datePipe: DatePipe, private loginService: LoginService) {
+  constructor(private service: PlannedDaysService, private router: Router, private datePipe: DatePipe, 
+    private loginService: LoginService) {
   }
 
   ngOnInit() {
-    this.userId=1;
+    this.userId = +sessionStorage.getItem('loggedUserId');
     this.service.refreshNeeded$.subscribe(() => this.refreshData());
     this.refreshData();
     for (let i = 0; i <= 12; i++) {

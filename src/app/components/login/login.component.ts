@@ -10,7 +10,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  credentials = {username: '', password: ''};
+  _credentials = {username: '', password: ''};
 
   constructor(private loginService: LoginService, private http: HttpClient, private router: Router) {
   }
@@ -19,10 +19,14 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.loginService.authenticate(this.credentials, () => {
+    this.loginService.authenticate(this._credentials, () => {
         this.router.navigateByUrl('/');
     });
     return false;
+  }
+
+  get credentials() {
+    return this._credentials;
   }
 
 }

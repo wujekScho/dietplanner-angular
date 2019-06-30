@@ -1,0 +1,42 @@
+<form [formGroup]="form">
+  <div class="form-group row justify-content-center">
+    <label for="login" class="col-sm-2 col-form-label">Login</label>
+    <div class="col-sm-4">
+      <input formControlName="login" type="text" class="form-control" placeholder="login">
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="alert alert-danger col-sm-6" *ngIf="login.touched && !login.valid">
+      <div *ngIf="login.errors.required">Pole wymagane</div>
+    </div>
+  </div>
+  <div class="form-group row justify-content-center">
+    <label for="password" class="col-sm-2 col-form-label">Hasło</label>
+    <div class="col-sm-4">
+      <input formControlName="password" type="password" class="form-control" placeholder="hasło"
+        (keyup)="checkPasswords()">
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="alert alert-danger col-sm-6" *ngIf="password.touched && !password.valid">
+      <div *ngIf="password.errors.required">Pole wymagane</div>
+    </div>
+  </div>
+  <div class="form-group row justify-content-center">
+    <label for="repeatedPassword" class="col-sm-2 col-form-label">Powtórz hasło</label>
+    <div class="col-sm-4">
+      <input formControlName="repeatedPassword" type="password" class="form-control" placeholder="hasło"
+        (keyup)="checkPasswords()">
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="alert alert-danger col-sm-6" *ngIf="repeatedPassword.touched && !repeatedPassword.valid">
+      <div *ngIf="repeatedPassword.errors.required">Pole wymagane</div>
+      <div *ngIf="repeatedPassword.errors.diferentPasswords">Hasła muszą być takie same</div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-sm-5"></div>
+    <button type="submit" class="btn btn-secondary btn-sm col-sm-1" [disabled]="!form.valid" (click)="addUser()">Zarejestruj się</button>
+  </div>
+</form>

@@ -15,16 +15,18 @@ import { NgbModal, NgbModalRef, NgbModalConfig } from '@ng-bootstrap/ng-bootstra
   styleUrls: ['./show-planned-meals.component.css']
 })
 export class ShowPlannedMealsComponent implements OnInit {
-  userId = 1; //pobierać podczas logowania
+  userId: number;
   _plannedDays: PlannedDay[] = [];
   @ViewChildren('content') elements;
   @ViewChild('modalContent', { static: false }) private content: NgbModalRef;
 
 
-  constructor(private service: PlannedDaysService, private router: Router, private modalService: NgbModal, private modalComponent: NgbModalConfig) {
+  constructor(private service: PlannedDaysService, private router: Router, private modalService: NgbModal, 
+    private modalComponent: NgbModalConfig) {
   }
 
   ngOnInit() {
+    this.userId = +sessionStorage.getItem('loggedUserId');
     this.service.refreshNeeded$.subscribe(() => this.refreshData());
     this.refreshData();
   }

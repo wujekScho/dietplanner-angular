@@ -60,10 +60,10 @@ export class DataService {
 
   handleError(error: Response) {
     if (error.status === 404) {
-      return throwError(new NotFoundError)
+      return throwError(new NotFoundError(error));
     }
     if (error.status === 400) {
-      return throwError(new BadInputError((error.json())))
+      return throwError(new BadInputError(error));
     }
     return throwError(new AppError(error));
   }

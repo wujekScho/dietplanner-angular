@@ -1,14 +1,16 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Dietplanner</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <a class="navbar-brand" href="#">Dietplanner</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <ul class="navbar-nav mr-auto">
       <!-- <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/planned-meals">Mój jadłospis</a>
       </li> -->
-      <li class="nav-item dropdown" routerLinkActive="active">
+
+      <li class="nav-item dropdown" routerLinkActive="active" *ngIf="this.loginService.isUserLoggedIn()">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           Mój jadłospis
@@ -19,14 +21,22 @@
           <a class="dropdown-item" href="/shopping-list">Lista zakupów</a>
         </div>
       </li>
-      <li class="nav-item" routerLinkActive="active">
+      <li class="nav-item" routerLinkActive="active" *ngIf="this.loginService.isUserLoggedIn()">
         <a class="nav-link" routerLink="/??????">Kreator posiłków</a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
+      <li class="nav-item" routerLinkActive="active" *ngIf="this.loginService.isUserLoggedIn()">
         <a class="nav-link" routerLink="/??????">Moje postępy</a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
+
+      <li class="nav-item" routerLinkActive="active" *ngIf="!this.loginService.isUserLoggedIn()">
         <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" *ngIf="!this.loginService.isUserLoggedIn()">
+        <a class="nav-link" routerLink="/register">Rejestracja</a>
+      </li>
+
+      <li class="nav-item" routerLinkActive="active" *ngIf="this.loginService.isUserLoggedIn()">
+        <a class="nav-link" (click)="logout()">Logout</a>
       </li>
       <button type="button" class="btn btn-secondary btn-sm nav-item mr-sm-2" (click)="goBack()">Wstecz</button>
     </ul>

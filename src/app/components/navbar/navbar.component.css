@@ -3,6 +3,9 @@ nav {
 }
 
 button {
-  
     float:right;
+}
+
+.nav-link {
+  cursor: pointer;
 }
