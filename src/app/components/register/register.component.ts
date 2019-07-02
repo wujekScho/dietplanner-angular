@@ -1,7 +1,9 @@
+import { UsernameValidator } from './../../../common/validators/username.validator';
 import { UserService } from './../../services/user.service';
-import { PasswordValidators } from './../../../common/validators/password.validator';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,11 +13,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
   form;
 
-  constructor(fb: FormBuilder, private userService: UserService) {
+  constructor(fb: FormBuilder, private userService: UserService, private usernameValidator: UsernameValidator, private router:Router) {
     this.form = fb.group({
-      login: ['', Validators.required],
-      password: ['', Validators.required],
-      repeatedPassword: ['', Validators.required]
+      login: new FormControl('', [Validators.required], this.isUsernameAvaliable.bind(this)),
+      password: new FormControl('', [Validators.required]),
+      repeatedPassword: new FormControl('', [Validators.required])
     });
   }
 
@@ -40,11 +42,19 @@ export class RegisterComponent implements OnInit {
     return this.form.get('repeatedPassword');
   }
 
+  isUsernameAvaliable(control: AbstractControl) {
+    return this.usernameValidator.isUsernameAvaliable(control.value).pipe(
+      map((response: boolean) => response ? null : { usernameTaken: true } )
+    )
+  }
+
   addUser() {
     let user = {
-      username: this.login,
-      password: this.password
+      username: this.login.value,
+      password: this.password.value
     }
-    this.userService.create(user).subscribe(); //TODO: tu skończone
+    this.userService.registerUser(user).subscribe();
+    alert('Zarejsetrowano nowego użytkowanika! Zaloguj się');
+    this.router.navigateByUrl("/login");
   }
 }

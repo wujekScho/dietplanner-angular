@@ -1,27 +1,13 @@
-<!-- <div class="alert alert-danger" [hidden]="!error">
-	There was a problem logging in. Please try again.
-</div>
-
-<form role="form" (submit)="login()">
-	<div class="form-group">
-		<label for="username">Username:</label> <input type="text" class="form-control" id="username" name="username"
-			[(ngModel)]="credentials.username" />
-	</div>
-	<div class="form-group">
-		<label for="password">Password:</label> <input type="password" class="form-control" id="password"
-			name="password" [(ngModel)]="credentials.password" />
-	</div>
-	<button type="submit" class="btn btn-primary">Submit</button>
-</form> -->
-
 <div class="wrapper fadeInDown">
   <div id="formContent">
-    <!-- Tabs Titles -->
-	<h2>Zaloguj się</h2>
+	<h2 >Zaloguj się</h2>
     <form (submit)="login()">
       <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" [(ngModel)]="credentials.username">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="hasło" [(ngModel)]="credentials.password">
       <input type="submit" class="fadeIn fourth" value="Log In">
-    </form>
+	</form>
+	<p class="text-secondary">W celu przetestowania aplikacji zaloguj się za pomocą:</p>
+	<p class="text-secondary">Login - test</p>
+	<p class="text-secondary">Hasło - test</p>
   </div>
 </div>

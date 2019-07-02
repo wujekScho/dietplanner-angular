@@ -1,3 +1,5 @@
+import { UserProgressComponent } from './components/user-progress/user-progress.component';
+import { UsernameValidator } from './../common/validators/username.validator';
 import { UserService } from './services/user.service';
 import { MyErrorHandler } from './../common/errors/app-error-handler';
 import { AuthHttpInterceptorService } from './services/auth-http-interceptor.service';
@@ -43,6 +45,7 @@ import { RegisterComponent } from './components/register/register.component';
     ShoppingListComponent,
     LoginComponent,
     RegisterComponent,
+    UserProgressComponent,
     
   ],
   entryComponents: [
@@ -63,6 +66,7 @@ import { RegisterComponent } from './components/register/register.component';
       { path: 'planned-meals/:plannedDayId', component: PlannedMealsDetailsComponent, canActivate: [LoginService] },
       { path: 'show-planned-meals', component: ShowPlannedMealsComponent, canActivate: [LoginService] },
       { path: 'shopping-list', component: ShoppingListComponent, canActivate: [LoginService] },
+      { path: 'progress', component: UserProgressComponent, canActivate: [LoginService] },
       { path: 'add-day-meals/:userId/:mealDate', component: AddDayMealsComponent, canActivate: [LoginService] },
       { path: '**', component: NotFoundComponent },
     ])
@@ -72,6 +76,7 @@ import { RegisterComponent } from './components/register/register.component';
     PlannedDaysService,
     LoginService,
     UserService,
+    UsernameValidator,
     DatePipe,
     PlannedMealsComponent,
     GlobalProviderComponent,

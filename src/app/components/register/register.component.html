@@ -6,8 +6,12 @@
     </div>
   </div>
   <div class="row justify-content-center">
+    <div class="col-sm-6" *ngIf="login?.pending">Sprawdzanie dostępności...</div>
+  </div>
+  <div class="row justify-content-center">
     <div class="alert alert-danger col-sm-6" *ngIf="login.touched && !login.valid">
-      <div *ngIf="login.errors.required">Pole wymagane</div>
+      <div *ngIf="login.errors?.required">Pole wymagane</div>
+      <div *ngIf="login.errors?.usernameTaken">Ten login jest już zajęty</div>
     </div>
   </div>
   <div class="form-group row justify-content-center">
@@ -37,6 +41,7 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-sm-5"></div>
-    <button type="submit" class="btn btn-secondary btn-sm col-sm-1" [disabled]="!form.valid" (click)="addUser()">Zarejestruj się</button>
+    <button type="submit" class="btn btn-secondary btn-sm col-sm-1" [disabled]="!form.valid"
+      (click)="addUser()">Zarejestruj się</button>
   </div>
 </form>

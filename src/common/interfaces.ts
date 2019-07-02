@@ -79,5 +79,6 @@ export interface User {
   password: string;
   plannedDays: PlannedDay[];
   roles: UserRole[];
+  weightOverTime: any;
 }
 

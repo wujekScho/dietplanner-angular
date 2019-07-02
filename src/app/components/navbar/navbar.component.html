@@ -25,16 +25,14 @@
         <a class="nav-link" routerLink="/??????">Kreator posiłków</a>
       </li>
       <li class="nav-item" routerLinkActive="active" *ngIf="this.loginService.isUserLoggedIn()">
-        <a class="nav-link" routerLink="/??????">Moje postępy</a>
+        <a class="nav-link" routerLink="/progress">Moje postępy</a>
       </li>
-
       <li class="nav-item" routerLinkActive="active" *ngIf="!this.loginService.isUserLoggedIn()">
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
       <li class="nav-item" routerLinkActive="active" *ngIf="!this.loginService.isUserLoggedIn()">
         <a class="nav-link" routerLink="/register">Rejestracja</a>
       </li>
-
       <li class="nav-item" routerLinkActive="active" *ngIf="this.loginService.isUserLoggedIn()">
         <a class="nav-link" (click)="logout()">Logout</a>
       </li>

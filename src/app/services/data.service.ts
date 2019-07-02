@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, Subject } from 'rxjs';
 import { NotFoundError } from 'src/common/errors/not-found-error';
+import { NotUniqueDateMeasurement } from 'src/common/errors/not-unique-date-measurement';
 
 @Injectable()
 export class DataService {
@@ -13,7 +14,7 @@ export class DataService {
 
   constructor(protected url: string, protected http: HttpClient) { }
 
-  private _refreshNeeded$ = new Subject<void>();
+  public _refreshNeeded$ = new Subject<void>();
 
   get refreshNeeded$() {
     return this._refreshNeeded$;
@@ -58,12 +59,15 @@ export class DataService {
     );
   }
 
-  handleError(error: Response) {
+  handleError(error: Response | any) {
     if (error.status === 404) {
       return throwError(new NotFoundError(error));
     }
     if (error.status === 400) {
       return throwError(new BadInputError(error));
+    }
+    if (error.status === 409 && error.error.message === 'not_unique_date') {
+      return throwError(new NotUniqueDateMeasurement(error));
     }
     return throwError(new AppError(error));
   }

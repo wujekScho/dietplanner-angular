@@ -1,0 +1,62 @@
+<div *ngIf="!isEdited">
+  <form [formGroup]="form">
+    <div class="form-group row justify-content-center align-items-center">
+      <label for="todaysWeigth" class="col-sm-1 col-form-label">Ile dziś ważysz?</label>
+      <div class="col-sm-3">
+        <input formControlName="todaysWeigth" id="todaysWeigth" type="number" class="form-control">
+      </div>
+      <div class="btn-group btn-group-sm col-sm-2" role="group">
+        <button type="button" class="btn btn-secondary" (click)="addTodayMeasurement()"
+          [disabled]="!form.valid">Dodaj</button>
+        <button type="button" class="btn btn-secondary" (click)="editMeasurements()">Edytuj swoje wyniki</button>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="alert alert-danger" *ngIf="todaysWeigth.touched && !todaysWeigth.valid">
+        <div *ngIf="todaysWeigth.errors.required">Pole wymagane</div>
+        <div *ngIf="todaysWeigth.errors.min">Minimalna waga to 0kg</div>
+        <div *ngIf="todaysWeigth.errors.max">Maksymalna waga to 300kg</div>
+      </div>
+    </div>
+  </form>
+  <div class="chart-container" *ngIf="lineChart">
+    <canvas id="lineChart" width="800" height="450"></canvas>
+  </div>
+</div>
+<div *ngIf="isEdited" class="table-continer">
+  <table class="table table-sm table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col" style="width: 30%">Data</th>
+        <th scope="col" style="width: 10%">Waga [kg]</th>
+        <th scope="col" style="width: 10%">Akcje</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-entry [ngForOf]="entries">
+        <tr class="clickable">
+          <td>{{entry[0]}}</td>
+          <td>{{entry[1]}}</td>
+          <td>
+            <i class="material-icons" (click)="edit(entry)"> edit </i>
+            <i class="material-icons" (click)="delete(entry)"> delete </i>
+          </td>
+
+        </tr>
+        <tr *ngIf="entry[2]">
+          <td class="divs-container" colspan="3">
+            <div class="slidecontainer">
+              <input [(ngModel)]="entry[1]" type="range" [min]="minWeigth" [max]="maxWeigth" step="0.1" class="slider">
+            </div>
+            <div class="edit-aprove">
+              <button type="button" id="save-changes" class="btn btn-secondary" (click)="saveChanges(entry)">Zapisz
+                zmiany</button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+  <button type="button" id="end-editing" class="btn btn-secondary" (click)="editMeasurements()">Zakończ
+    edycję</button>
+</div>

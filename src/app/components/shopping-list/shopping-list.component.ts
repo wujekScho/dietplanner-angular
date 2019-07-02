@@ -74,7 +74,6 @@ export class ShoppingListComponent implements OnInit {
   downloadPDF() {
     let content = this.content.nativeElement;
     html2canvas(content).then(canvas => {
-      console.log(content);
       var imgWidth = 190;
       var pageHeight = 295;
       var imgHeight = canvas.height * imgWidth / canvas.width;

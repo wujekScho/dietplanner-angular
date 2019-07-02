@@ -33,7 +33,7 @@ export class LoginService implements CanActivate {
           sessionStorage.setItem('loggedUsername', response.username);
           let authString = 'Basic ' + btoa(credentials.username + ':' + credentials.password);
           sessionStorage.setItem('basicauth', authString);
-          sessionStorage.setItem('loggedUserId', ''+response.id);
+          sessionStorage.setItem('loggedUserId', '' + response.id);
         }
         return callback && callback();
       });
@@ -42,7 +42,7 @@ export class LoginService implements CanActivate {
   isUserLoggedIn() {
     let user = sessionStorage.getItem('loggedUsername');
     let basicAuth = sessionStorage.getItem('basicauth');
-    return user !== null && basicAuth !== null;
+    return user && basicAuth;
   }
 
   logout() {
