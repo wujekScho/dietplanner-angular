@@ -28,6 +28,7 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
 import { RegisterComponent } from './components/register/register.component';
+import { MealsCreatorComponent } from './components/meals-creator/meals-creator.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { RegisterComponent } from './components/register/register.component';
     LoginComponent,
     RegisterComponent,
     UserProgressComponent,
+    MealsCreatorComponent,
     
   ],
   entryComponents: [
@@ -67,6 +69,7 @@ import { RegisterComponent } from './components/register/register.component';
       { path: 'show-planned-meals', component: ShowPlannedMealsComponent, canActivate: [LoginService] },
       { path: 'shopping-list', component: ShoppingListComponent, canActivate: [LoginService] },
       { path: 'progress', component: UserProgressComponent, canActivate: [LoginService] },
+      { path: 'create', component: MealsCreatorComponent, canActivate: [LoginService] },
       { path: 'add-day-meals/:userId/:mealDate', component: AddDayMealsComponent, canActivate: [LoginService] },
       { path: '**', component: NotFoundComponent },
     ])

@@ -28,7 +28,7 @@ export class AddDayMealsComponent implements OnInit {
         this.mealDate = this.getMealDateArr(params.get('mealDate'));
       });
 
-    this.dayMealsService.getAll().subscribe((dayMeals: DayMeals[]) => this.allDayMeals = dayMeals);
+    this.dayMealsService.getAllByUserId(+sessionStorage.getItem('loggedUserId')).subscribe((dayMeals: DayMeals[]) => this.allDayMeals = dayMeals);
   }
 
   getMealDateArr(date: string) {

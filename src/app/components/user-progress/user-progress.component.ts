@@ -27,7 +27,6 @@ export class UserProgressComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isEdited = true;
     this.userService.refreshNeeded$.subscribe(() => this.refreshData());
     this.refreshData();
   }
