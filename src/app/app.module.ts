@@ -1,3 +1,4 @@
+import { MealService } from './services/meal.service';
 import { UserProgressComponent } from './components/user-progress/user-progress.component';
 import { UsernameValidator } from './../common/validators/username.validator';
 import { UserService } from './services/user.service';
@@ -11,6 +12,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
@@ -29,6 +31,12 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
 import { RegisterComponent } from './components/register/register.component';
 import { MealsCreatorComponent } from './components/meals-creator/meals-creator.component';
+import { AddMealComponent } from './components/add-meal/add-meal.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
+
+
 
 
 @NgModule({
@@ -48,7 +56,8 @@ import { MealsCreatorComponent } from './components/meals-creator/meals-creator.
     RegisterComponent,
     UserProgressComponent,
     MealsCreatorComponent,
-    
+    AddMealComponent,
+    AddProductComponent,
   ],
   entryComponents: [
     NgbdModalConfig,
@@ -59,7 +68,9 @@ import { MealsCreatorComponent } from './components/meals-creator/meals-creator.
     HttpClientModule,
     NgbModule,
     FormsModule,
+    NgSelectModule,
     ReactiveFormsModule,
+    MDBBootstrapModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
@@ -69,7 +80,15 @@ import { MealsCreatorComponent } from './components/meals-creator/meals-creator.
       { path: 'show-planned-meals', component: ShowPlannedMealsComponent, canActivate: [LoginService] },
       { path: 'shopping-list', component: ShoppingListComponent, canActivate: [LoginService] },
       { path: 'progress', component: UserProgressComponent, canActivate: [LoginService] },
-      { path: 'create', component: MealsCreatorComponent, canActivate: [LoginService] },
+      {
+        path: 'create-meals', component: MealsCreatorComponent, canActivate: [LoginService], children: [
+          {
+            path: 'add-meal', component: AddMealComponent, children: [
+              { path: 'add-product', component: AddProductComponent }
+            ]
+          },
+        ]
+      },
       { path: 'add-day-meals/:userId/:mealDate', component: AddDayMealsComponent, canActivate: [LoginService] },
       { path: '**', component: NotFoundComponent },
     ])
@@ -82,6 +101,7 @@ import { MealsCreatorComponent } from './components/meals-creator/meals-creator.
     UsernameValidator,
     DatePipe,
     PlannedMealsComponent,
+    MealService,
     GlobalProviderComponent,
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true },
     { provide: ErrorHandler, useClass: MyErrorHandler },

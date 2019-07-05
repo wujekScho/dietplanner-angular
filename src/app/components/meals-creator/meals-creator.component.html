@@ -1,3 +1,95 @@
-<p>
-  meals-creator works!
-</p>
+<div class="cards-container row">
+  <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let dayMeal of dayMeals">
+    <div class="card border-secondary mb-3">
+      <div class="card-header">
+        {{dayMeal.title}}
+      </div>
+      <div class="card-body">
+        <div *ngIf="dayMeal.meal!==null; else elseBlock">
+          <h5 class="card-title">{{dayMeal.meal.name}}</h5>
+          <p class="card-text">
+            Kalorie: {{dayMeal.meal.calories}}<br>
+            Węglowodany: {{dayMeal.meal.carbohydrates}}<br>
+            Tłuszcze: {{dayMeal.meal.fat}}<br>
+            Białka: {{dayMeal.meal.protein}}
+          </p>
+        </div>
+        <ng-template #elseBlock>
+          <h5 class="card-title">Nie wybrano posiłku</h5>
+          <p class="card-text">Dodaj posiłek z zestawu gotowych dań lub stwórz swój własny.</p>
+        </ng-template>
+      </div>
+      <div class="card-footer">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary" (click)="pickMeal(dayMeal)"
+            [disabled]="pickingMeal || dayMeal.meal">Wybierz z
+            gotowych</button>
+          <button type="button" class="btn btn-secondary" [disabled]="pickingMeal || dayMeal.meal">Stwórz swój</button>
+          <button type="button" class="btn btn-secondary" (click)="deleteMeal(dayMeal)"
+            [disabled]="!dayMeal.meal || pickingMeal">Usuń</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="select-meal" *ngIf="pickingMeal">
+  <div class="card border-secondary mb-3">
+    <div class="card-header">
+      Wyszukaj posiłki po nazwie:
+    </div>
+    <div class="card-body">
+      <ng-select [items]="meals" bindLabel="name" [(ngModel)]="pickingDay.meal">
+        <ng-template ng-option-tmp let-item="item">
+          <div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">{{item.name}}</h6>
+              <small class="card-text">
+                Kalorie: {{item.calories}} | Węglowodany: {{item.carbohydrates}} | Tłuszcze: {{item.fat}} | Białka:
+                {{item.protein}}
+              </small>
+            </div>
+          </div>
+        </ng-template>
+      </ng-select>
+      <div class="card-footer">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary" (click)="endOfPicking()"
+            [disabled]="!pickingDay.meal">Wybierz</button>
+          <button type="button" class="btn btn-secondary" (click)="cancelPicking()">Anuluj</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="table-container">
+  <div class="table">
+    <table class="table table-sm table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>Kalorie</th>
+          <th>Białka [g]</th>
+          <th>Tłuszcze [g]</th>
+          <th>Węglowodany [g]</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="col" style="width: 25%">{{macros[0]}}</td>
+          <td scope="col" style="width: 25%">{{macros[1]}}</td>
+          <td scope="col" style="width: 25%">{{macros[2]}}</td>
+          <td scope="col" style="width: 25%">{{macros[3]}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="big-btn-container">
+  <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="saveMeals()"
+    [disabled]="!allPicked || pickingMeal">Zapisz zestaw posiłków</button>
+</div>
+<!-- <input type="text">
+<button routerLink="/create-meals/add-meal">Dodaj posiłek</button>
+<button routerLink="/create-meals">Wróć</button>
+<router-outlet></router-outlet> -->

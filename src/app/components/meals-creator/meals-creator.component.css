@@ -1,0 +1,23 @@
+.cards-container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#big-btn-container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.select-meal {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.table-container{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+td, th {
+  text-align: center;   
+}

@@ -1,4 +1,7 @@
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+
 
 h3 {
   font-size: 20px;
