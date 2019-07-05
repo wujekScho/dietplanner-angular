@@ -1,47 +1,172 @@
 <form [formGroup]="form">
-  <div class="form-group row justify-content-center">
+  <div class="form-group row justify-content-center align-items-center">
     <label for="login" class="col-sm-2 col-form-label">Login</label>
     <div class="col-sm-4">
-      <input formControlName="login" type="text" class="form-control" placeholder="login">
+      <input formControlName="login" id="login" type="text" class="form-control" placeholder="login">
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center align-items-center">
     <div class="col-sm-6" *ngIf="login?.pending">Sprawdzanie dostępności...</div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center align-items-center">
     <div class="alert alert-danger col-sm-6" *ngIf="login.touched && !login.valid">
       <div *ngIf="login.errors?.required">Pole wymagane</div>
       <div *ngIf="login.errors?.usernameTaken">Ten login jest już zajęty</div>
     </div>
   </div>
-  <div class="form-group row justify-content-center">
+  <div class="form-group row justify-content-center align-items-center">
     <label for="password" class="col-sm-2 col-form-label">Hasło</label>
     <div class="col-sm-4">
-      <input formControlName="password" type="password" class="form-control" placeholder="hasło"
+      <input formControlName="password" id="password" type="password" class="form-control" placeholder="hasło"
         (keyup)="checkPasswords()">
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center align-items-center">
     <div class="alert alert-danger col-sm-6" *ngIf="password.touched && !password.valid">
       <div *ngIf="password.errors.required">Pole wymagane</div>
     </div>
   </div>
-  <div class="form-group row justify-content-center">
+  <div class="form-group row justify-content-center align-items-center">
     <label for="repeatedPassword" class="col-sm-2 col-form-label">Powtórz hasło</label>
     <div class="col-sm-4">
-      <input formControlName="repeatedPassword" type="password" class="form-control" placeholder="hasło"
-        (keyup)="checkPasswords()">
+      <input formControlName="repeatedPassword" id="repeatedPassword" type="password" class="form-control"
+        placeholder="hasło" (keyup)="checkPasswords()">
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center align-items-center">
     <div class="alert alert-danger col-sm-6" *ngIf="repeatedPassword.touched && !repeatedPassword.valid">
       <div *ngIf="repeatedPassword.errors.required">Pole wymagane</div>
       <div *ngIf="repeatedPassword.errors.diferentPasswords">Hasła muszą być takie same</div>
     </div>
   </div>
+
+  <div class="form-group row justify-content-center align-items-center">
+    <div class="col-sm-2">
+      Jak chcesz podać zapotrzebowanie?
+    </div>
+    <div class="col-sm-4">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" formControlName="typeCalculate" id="type" value="type"
+          (change)="setValidators()">
+        <label class="form-check-label" for="type">
+          Wpisz
+        </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" formControlName="typeCalculate" id="calculate" value="calculate"
+          (change)="setValidators()">
+        <label class="form-check-label" for="calculate">
+          Oblicz
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-center align-items-center">
+    <label for="caloriesNeeded" class="col-sm-2 col-form-label">Zapotrzebowanie kaloryczne</label>
+    <div class="col-sm-4">
+      <input formControlName="caloriesNeeded" id="caloriesNeeded" type="number" class="form-control"
+        placeholder="kalorie" [readonly]="isDisabled">
+    </div>
+  </div>
+  <div class="row justify-content-center align-items-center">
+    <div class="alert alert-danger col-sm-6" *ngIf="caloriesNeeded.touched && !caloriesNeeded.valid">
+      <div *ngIf="caloriesNeeded.errors.required">Pole wymagane</div>
+      <div *ngIf="caloriesNeeded.errors.min">Minimalna wartość zapotrzebowania kalorycznego to 1000 kcal</div>
+    </div>
+  </div>
+
+  <div formGroupName="calculateCalories" *ngIf="isDisabled">
+    <div class="form-group row justify-content-center align-items-center">
+      <div class="col-sm-2">Płeć</div>
+      <div class="col-sm-4">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" formControlName="gender" id="woman" value="woman"
+            (change)="calculate()">
+          <label class="form-check-label" for="woman">
+            Kobieta
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" formControlName="gender" id="man" value="man"
+            (change)="calculate()">
+          <label class="form-check-label" for="man">
+            Mężczyna
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row justify-content-center align-items-center">
+      <label for="bodyWeigth" class="col-sm-2 col-form-label">Masa ciała</label>
+      <div class="col-sm-4">
+        <input formControlName="bodyWeigth" id="bodyWeigth" step="0.1" type="number" class="form-control"
+          placeholder="kg" (keyup)="calculate()" (change)="calculate()">
+      </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+      <div class="alert alert-danger col-sm-6" *ngIf="bodyWeigth.touched && !bodyWeigth.valid">
+        <div *ngIf="bodyWeigth?.errors.required">Pole wymagane</div>
+        <div *ngIf="bodyWeigth?.errors.min">Minimalna wartość to 0</div>
+      </div>
+    </div>
+
+    <div class="form-group row justify-content-center align-items-center">
+      <label for="height" class="col-sm-2 col-form-label">Wzrost</label>
+      <div class="col-sm-4">
+        <input formControlName="height" id="height" type="number" step="1" class="form-control" placeholder="cm"
+          (keyup)="calculate()" (change)="calculate()">
+      </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+      <div class="alert alert-danger col-sm-6" *ngIf="height.touched && !height.valid">
+        <div *ngIf="height.errors?.required">Pole wymagane</div>
+        <div *ngIf="height.errors?.min">Minimalna wartość to 0</div>
+      </div>
+    </div>
+
+    <div class="form-group row justify-content-center align-items-center">
+      <label for="age" class="col-sm-2 col-form-label">Wiek</label>
+      <div class="col-sm-4">
+        <input formControlName="age" id="age" type="number" step="1" class="form-control" placeholder="lata"
+          (keyup)="calculate()" (change)="calculate()">
+      </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+        <div class="alert alert-danger col-sm-6" *ngIf="age.touched && !age.valid">
+          <div *ngIf="age.errors?.required">Pole wymagane</div>
+          <div *ngIf="age.errors?.min">Minimalna wartość to 0</div>
+          <div *ngIf="age.errors?.max">Maksymana wartość to 120</div>
+        </div>
+      </div>
+
+    <div class="form-group row justify-content-center align-items-center">
+      <label for="activityLevel" class="col-sm-2 col-form-label">Aktywność fizyczna</label>
+      <div class="col-sm-4">
+        <select formControlName="activityLevel" class="form-control" id="activityLevel" (change)="calculate()">
+          <option value=1.2>Brak aktywności, praca siedząca</option>
+          <option value=1.35>Niska aktywność (praca siedząca i 1-2 treningi w tygodniu)</option>
+          <option value=1.55>Średnia aktywność (praca siedząca i treningi 3-4 razy w tygodniu)</option>
+          <option value=1.75>Wysoka aktywność (praca fizyczna i 3-4 treningi w tygodniu)</option>
+          <option value=2.05>Nardzo wysoka aktywność (zawodowi sportowcy, osoby codziennie trenujące)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row justify-content-center align-items-center">
+      <label for="goal" class="col-sm-2 col-form-label">Twój cel</label>
+      <div class="col-sm-4">
+        <select formControlName="goal" class="form-control" id="goal" (change)="calculate()">
+          <option value=0>Chcę utrzymać wagę</option>
+          <option value=-300>Chcę schudnąć</option>
+          <option value=+300>Chcę przytyć</option>
+        </select>
+      </div>
+    </div>
+  </div>
   <div class="row justify-content-center">
     <div class="col-sm-5"></div>
-    <button type="submit" class="btn btn-secondary btn-sm col-sm-1" [disabled]="!form.valid"
+    <button type="button" class="btn btn-secondary btn-sm col-sm-1" [disabled]="!form.valid"
       (click)="addUser()">Zarejestruj się</button>
   </div>
 </form>
